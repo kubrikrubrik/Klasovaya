@@ -1,0 +1,343 @@
+/* art.css — оформление и анимации персонажей и сцен «Царской казны» */
+.art { overflow: visible; }
+.boss-art, .art.scene { overflow: hidden; }
+.art .k { stroke: #2a1b12; stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
+.art .k1 { stroke: #2a1b12; stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
+.art .kb { stroke-width: 3.2; }
+.art .nf { fill: none; }
+.art .hl { fill: none; stroke: #fff6e0; stroke-width: 1.5; opacity: .5; stroke-linecap: round; }
+.art .zig { fill: none; stroke: #e8c86e; stroke-width: 1.6; stroke-linejoin: round; }
+.art .ring { stroke-width: 2.8; }
+.art .dots { stroke: #e8c86e; stroke-width: 2.2; }
+.art .ch * { transform-box: view-box; }
+
+/* ---------- мимика ---------- */
+.ch .e, .ch .b, .ch .m { display: none; }
+.ch[data-e="open"] .e-open, .ch[data-e="sad"] .e-sad, .ch[data-e="sly"] .e-sly, .ch[data-e="closed"] .e-closed,
+.ch[data-e="happy"] .e-happy, .ch[data-e="wide"] .e-wide, .ch[data-e="x"] .e-x { display: inline; }
+.ch[data-b="n"] .b-n, .ch[data-b="s"] .b-s, .ch[data-b="u"] .b-u, .ch[data-b="a"] .b-a { display: inline; }
+.ch[data-m="n"] .m-n, .ch[data-m="s"] .m-s, .ch[data-m="g"] .m-g, .ch[data-m="sad"] .m-sad,
+.ch[data-m="o"] .m-o, .ch[data-m="w"] .m-w, .ch[data-m="t"] .m-t { display: inline; }
+.ch[data-e="open"] .e-open, .ch[data-e="sad"] .e-sad, .ch[data-e="sly"] .e-sly { animation: blink 5.2s infinite; animation-delay: var(--bd, 0s); }
+.ch .pup { animation: lookabout 11s ease-in-out infinite; animation-delay: var(--bd, 0s); }
+.ch[data-m="t"] .m-t, .ch.talking .m-t { animation: talk .22s ease-in-out infinite alternate; }
+@keyframes blink { 0%, 93%, 100% { transform: scaleY(1); } 95.5% { transform: scaleY(.08); } }
+@keyframes lookabout { 0%, 40%, 100% { transform: translateX(0); } 48%, 60% { transform: translateX(2px); } 70%, 82% { transform: translateX(-1px); } }
+@keyframes talk { from { transform: scaleY(.45); } to { transform: scaleY(1.1); } }
+
+/* ---------- реквизит ---------- */
+.ch .prop { display: none; }
+.ch[data-mood="sad"] .tear { display: inline; animation: tear 1.6s ease-in infinite; }
+.ch[data-mood="surprised"] .sweat, .ch[data-mood="nervous"] .sweat, .ch[data-mood="shrug"] .sweat { display: inline; animation: tear 1.2s ease-in infinite; }
+.ch[data-mood="sigh"] .puff { display: inline; animation: puff 2.2s ease-out forwards; }
+.ch[data-mood="joy"] .spark, .ch[data-mood="laugh"] .spark { display: inline; animation: twinkle .7s ease-in-out infinite alternate; }
+.ch[data-mood="count"] .held { display: inline; }
+@keyframes tear { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateY(22px); opacity: 0; } }
+@keyframes puff { 0% { transform: translate(8px, 4px) scale(.3); opacity: 0; } 25% { opacity: 1; } 100% { transform: translate(-16px, -10px) scale(1.15); opacity: 0; } }
+@keyframes twinkle { from { opacity: .35; transform: scale(.9); } to { opacity: 1; transform: scale(1.06); } }
+
+/* ---------- общая пластика ---------- */
+.ch .arm, .ch .fore, .ch .head, .ch .body { transition: transform .38s cubic-bezier(.3, 1.35, .5, 1); }
+.ch .body { animation: breathe 3.8s ease-in-out infinite; animation-delay: var(--bd, 0s); }
+@keyframes breathe { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.006, 1.014); } }
+@keyframes hop { 0%, 100% { transform: translateY(0); } 30% { transform: translateY(-16px); } 55% { transform: translateY(0); } 70% { transform: translateY(-7px); } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-2px); } 75% { transform: translateX(2px); } }
+
+/* ---------- слуга-ключник ---------- */
+.servant .arm { transform: rotate(7deg); }
+.servant .fore { transform: rotate(-5deg); }
+.servant .head { animation: headIdle 6s ease-in-out infinite; }
+.servant .keys { animation: keys 3.8s ease-in-out infinite; }
+@keyframes headIdle { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-2.5deg); } 60% { transform: rotate(1.5deg); } }
+@keyframes keys { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(5deg); } }
+.servant[data-pose="up"] .arm { transform: rotate(152deg); }
+.servant[data-pose="up"] .fore { transform: rotate(-22deg); }
+.servant[data-mood="joy"] { animation: hop .7s ease-out 2; }
+.servant[data-mood="joy"] .keys { animation: keys .3s ease-in-out infinite; }
+.servant[data-pose="limp"] .arm { transform: rotate(-1deg); }
+.servant[data-pose="limp"] .fore { transform: rotate(3deg); }
+.servant[data-mood="sad"] .head { animation: none; transform: rotate(7deg) translate(-2px, 4px); }
+.servant[data-mood="sad"] .body { animation: slump 4s ease-in-out infinite; }
+@keyframes slump { 0%, 100% { transform: scale(1, .975); } 50% { transform: scale(1, .96); } }
+.servant[data-pose="fright"] .arm { transform: rotate(36deg); }
+.servant[data-pose="fright"] .fore { transform: rotate(-138deg); }
+.servant[data-mood="surprised"] { animation: jumpBack .45s ease-out; }
+@keyframes jumpBack { 0% { transform: translate(0, 0); } 40% { transform: translate(8px, -12px); } 100% { transform: translate(4px, 0); } }
+.servant[data-pose="count"] .arm-l { transform: rotate(-14deg); }
+.servant[data-pose="count"] .arm-l .fore { transform: rotate(-112deg); }
+.servant[data-pose="count"] .arm-r { transform: rotate(-6deg); }
+.servant[data-pose="count"] .arm-r .fore { animation: tap .5s ease-in-out infinite alternate; }
+.servant[data-mood="count"] .head { animation: none; transform: rotate(-5deg) translate(-2px, 3px); }
+@keyframes tap { from { transform: rotate(-92deg); } to { transform: rotate(-104deg); } }
+.servant[data-mood="sigh"] .body { animation: sigh 2.2s ease-in-out; }
+@keyframes sigh { 0% { transform: scale(1, 1); } 35% { transform: scale(1.02, 1.045); } 75% { transform: scale(1, .955); } 100% { transform: scale(1, 1); } }
+.servant[data-pose="out"] .arm { transform: rotate(64deg); }
+.servant[data-pose="out"] .fore { transform: rotate(-84deg); }
+.servant[data-mood="shrug"] .head { animation: none; transform: rotate(-7deg); }
+.servant[data-pose="rub"] .arm { transform: rotate(-17deg); }
+.servant[data-pose="rub"] .arm-l .fore { animation: rubL .34s ease-in-out infinite alternate; }
+.servant[data-pose="rub"] .arm-r .fore { animation: rubR .34s ease-in-out infinite alternate; }
+@keyframes rubL { from { transform: rotate(-92deg); } to { transform: rotate(-108deg); } }
+@keyframes rubR { from { transform: rotate(-108deg); } to { transform: rotate(-92deg); } }
+
+/* ---------- казначей ---------- */
+.treasurer .head { animation: headIdle 7s ease-in-out infinite; }
+.treasurer[data-pose="write"] .arm-l .fore { animation: scribble .32s ease-in-out infinite alternate; }
+.treasurer[data-pose="write"] .quill { animation: quillWag .16s ease-in-out infinite alternate; }
+@keyframes scribble { from { transform: rotate(-3deg) translateX(-2px); } to { transform: rotate(4deg) translateX(3px); } }
+@keyframes quillWag { from { transform: rotate(-6deg); } to { transform: rotate(5deg); } }
+.treasurer[data-pose="dip"] .arm-l { transform: rotate(38deg); }
+.treasurer[data-pose="dip"] .arm-l .fore { transform: rotate(14deg); }
+.treasurer[data-mood="sigh"] .body { animation: sigh 2.4s ease-in-out; }
+.treasurer[data-mood="look"] .head { animation: none; transform: rotate(-4deg); }
+.treasurer[data-mood="look"] .pince { transform: translateY(5px); }
+.treasurer .pince { transition: transform .4s; }
+.flame { animation: flicker 1.6s ease-in-out infinite; }
+@keyframes flicker { 0%, 100% { transform: scale(1, 1) rotate(0); } 25% { transform: scale(.92, 1.06) rotate(-3deg); } 50% { transform: scale(1.05, .95) rotate(2deg); } 75% { transform: scale(.96, 1.08) rotate(-1deg); } }
+
+/* ---------- шут ---------- */
+.jester .arm-l { transform: rotate(54deg); }
+.jester .arm-l .fore { transform: rotate(-40deg); }
+.jester .arm-r { transform: rotate(24deg); }
+.jester .arm-r .fore { transform: rotate(-148deg); }
+.jester .body { animation: jig 1.1s ease-in-out infinite; }
+.jester .horn { animation: hornSway 1.1s ease-in-out infinite; }
+.jester .h2 { animation-delay: -.3s; }
+.jester .h3 { animation-delay: -.6s; }
+@keyframes jig { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes hornSway { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(5deg); } }
+.jester[data-mood="nervous"] .body { animation: shake .09s linear infinite; }
+.jester[data-mood="nervous"] .horn { animation-duration: .25s; }
+.jester[data-mood="nervous"] .arm-r .fore { transform: rotate(-162deg); }
+.jester[data-pose="spin"] .arm-l { animation: spinArm .55s cubic-bezier(.6, 0, .4, 1) 1 forwards; }
+@keyframes spinArm { 0% { transform: rotate(54deg); } 35% { transform: rotate(108deg); } 100% { transform: rotate(-6deg); } }
+.jester[data-pose="spin"] .arm-l .fore { transform: rotate(-20deg); }
+.jester[data-pose="laugh"] .head { transform: rotate(-11deg) translate(4px, -2px); }
+.jester[data-mood="laugh"] .body { animation: laughShake .16s ease-in-out infinite alternate; }
+.jester[data-pose="laugh"] .arm-r { transform: rotate(-8deg); }
+.jester[data-pose="laugh"] .arm-r .fore { transform: rotate(-80deg); }
+@keyframes laughShake { from { transform: translateY(0); } to { transform: translateY(-3px) rotate(.6deg); } }
+.jester[data-pose="windup"] .arm-r { transform: rotate(150deg); transition-duration: .55s; }
+.jester[data-pose="windup"] .arm-r .fore { transform: rotate(-30deg); }
+.jester[data-pose="windup"] .head { transform: rotate(5deg); }
+.jester[data-pose="throw"] .arm-r { transform: rotate(-38deg); transition: transform .14s ease-in; }
+.jester[data-pose="throw"] .arm-r .fore { transform: rotate(-46deg); transition: transform .14s ease-in; }
+.jester.thrown .dagger-in-hand { visibility: hidden; }
+
+/* ---------- повар ---------- */
+.cook .arm { transform: rotate(8deg); }
+.cook .fore { transform: rotate(-42deg); }
+.cook .ladle, .cook .prop.steam-puff { display: none; }
+.cook .head { animation: headIdle 6.5s ease-in-out infinite; }
+.cook[data-pose="cut"] .arm-l { transform: rotate(-4deg); }
+.cook[data-pose="cut"] .arm-l .fore { transform: rotate(-66deg); }
+.cook[data-pose="cut"] .arm-r { transform: rotate(4deg); }
+.cook[data-pose="cut"] .arm-r .fore { animation: chop .42s cubic-bezier(.5, 0, .7, 1) infinite; }
+@keyframes chop { 0%, 100% { transform: rotate(-112deg); } 55% { transform: rotate(-62deg); } }
+.cook[data-pose="cut"] ~ .slices .slice, .cook-table .slice { animation: none; }
+.cutting .slice { animation: slicePop 2.1s ease-out infinite; }
+.cutting .s1 { animation-delay: .42s; } .cutting .s2 { animation-delay: .84s; } .cutting .s3 { animation-delay: 1.26s; } .cutting .s4 { animation-delay: 1.68s; }
+@keyframes slicePop { 0%, 15% { transform: translateY(0); opacity: 0; } 22% { transform: translateY(-6px); opacity: 1; } 32%, 88% { transform: translateY(0); opacity: 1; } 100% { opacity: 0; } }
+.cook[data-pose="stir"] .ladle, .cook[data-pose="taste"] .ladle { display: inline; }
+.cook[data-pose="stir"] .cleaver, .cook[data-pose="taste"] .cleaver { display: none; }
+.cook[data-pose="stir"] .arm-r { animation: stirArm 1.3s ease-in-out infinite; }
+.cook[data-pose="stir"] .arm-r .fore { animation: stirFore 1.3s ease-in-out infinite; }
+@keyframes stirArm { 0%, 100% { transform: rotate(14deg); } 50% { transform: rotate(30deg); } }
+@keyframes stirFore { 0%, 100% { transform: rotate(-58deg); } 25% { transform: rotate(-72deg); } 50% { transform: rotate(-60deg); } 75% { transform: rotate(-46deg); } }
+.cook[data-pose="taste"] .arm-r { transform: rotate(-38deg); }
+.cook[data-pose="taste"] .arm-r .fore { transform: rotate(-138deg); }
+.cook[data-mood="taste"] .steam-puff { display: inline; animation: puff 1.6s ease-out infinite; }
+.cook[data-pose="point"] .arm-l { transform: rotate(48deg); }
+.cook[data-pose="point"] .arm-l .fore { transform: rotate(-12deg); }
+.cook[data-pose="cheeks"] .arm { transform: rotate(-26deg); }
+.cook[data-pose="cheeks"] .fore { transform: rotate(-148deg); }
+.cook[data-pose="cheeks"] .head { animation: shake .3s ease-in-out infinite; }
+.cook[data-pose="up"] .arm { transform: rotate(150deg); }
+.cook[data-pose="up"] .fore { transform: rotate(-18deg); }
+.cook[data-mood="joy"] .body { animation: hop .7s ease-out 2; }
+.cook[data-pose="fright"] .arm { transform: rotate(30deg); }
+.cook[data-pose="fright"] .fore { transform: rotate(-120deg); }
+.cook[data-mood="surprised"] .body { animation: jumpBack .45s ease-out; }
+.pot .st { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; opacity: 0; animation: steam 3s ease-out infinite; }
+.pot .st2 { animation-delay: 1s; } .pot .st3 { animation-delay: 2s; }
+@keyframes steam { 0% { opacity: 0; transform: translateY(6px) scaleY(.6); } 30% { opacity: .7; } 100% { opacity: 0; transform: translateY(-26px) scaleY(1.1); } }
+
+/* ---------- бояре ---------- */
+.boyar { animation: sway 5s ease-in-out infinite; animation-delay: var(--bd, 0s); }
+@keyframes sway { 0%, 100% { transform: rotate(-.8deg); } 50% { transform: rotate(.8deg); } }
+.boyar.bowing { animation: bowDown 2.1s cubic-bezier(.45, 0, .25, 1) 1; }
+@keyframes bowDown { 0% { transform: rotate(0); } 12% { transform: rotate(4deg); } 38% { transform: rotate(-64deg) translate(-4px, 14px); } 62% { transform: rotate(-64deg) translate(-4px, 14px); } 100% { transform: rotate(0); } }
+.boyar.bowing .head { animation: hatLag 2.1s ease-in-out 1; }
+@keyframes hatLag { 0%, 100% { transform: rotate(0); } 40% { transform: rotate(-12deg); } 60% { transform: rotate(-8deg); } }
+.boyar[data-pose="gesture"] .arm { transform: rotate(96deg); }
+.boyar .arm { transition: transform .45s cubic-bezier(.3, 1.3, .5, 1); }
+.boyar[data-mood="speak"] .head { animation: nod 1.4s ease-in-out infinite; }
+@keyframes nod { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-4deg); } }
+
+/* ---------- герои на карте ---------- */
+.heroes .leg { transition: transform .2s; }
+.heroes.walking .l1 { animation: legA .36s ease-in-out infinite alternate; }
+.heroes.walking .l2 { animation: legA .36s ease-in-out infinite alternate-reverse; }
+.heroes.walking .walker { animation: bob .18s ease-in-out infinite alternate; }
+@keyframes legA { from { transform: rotate(-22deg); } to { transform: rotate(22deg); } }
+@keyframes bob { from { transform: translateY(0); } to { transform: translateY(-2.5px); } }
+.heroes .walker { animation: breathe 3s ease-in-out infinite; }
+
+/* ---------- облегчённые режимы ---------- */
+.anim-low .art .pup, .anim-low .art .body, .anim-low .art .horn, .anim-low .art .keys { animation: none !important; }
+.anim-off .art *, .anim-off .art { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { .motion-auto .art .pup, .motion-auto .art .body, .motion-auto .art .horn { animation: none !important; } }
+
+/* ---------- боссы ---------- */
+.art .boneout { stroke-width: 7.5; }
+.art .bone { fill: none; stroke: #e6dec5; stroke-width: 4.6; stroke-linecap: round; }
+.art .spoutline { stroke: #a9c0c8; stroke-width: 3; }
+.boss .fig, .boss .barrier, .boss .cathat, .boss .crown, .boss .neck, .boss .foot, .boss .fly, .boss .beast, .boss .n1, .boss .n2, .boss .n3, .boss .tail {
+  transition: transform .9s cubic-bezier(.4, 1.25, .5, 1), opacity .6s; }
+.boss .stars, .boss .e-x-on, .boss .stampmark { display: none; }
+.boss[data-state="defeated"] .stars, .boss[data-state="opened"] .stars { display: inline; animation: starsSpin 2.4s linear infinite; }
+.boss[data-state="defeated"] .e-x-on, .boss[data-state="opened"] .e-x-on { display: inline; }
+.boss[data-state="defeated"] .cateyes, .boss[data-state="defeated"] .glow, .boss[data-state="opened"] .cateyes, .boss[data-state="opened"] .glow { display: none; }
+@keyframes starsSpin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+.boss[data-state="locked"] * { fill: #2a1b12 !important; stroke: #2a1b12 !important; animation: none !important; }
+.boss[data-state="locked"] { opacity: .32; }
+.boss[data-state="locked"] .stars { display: none; }
+.boss[data-state="fight"] .fig { animation: fightShake .28s ease-in-out infinite; }
+@keyframes fightShake { 0%, 100% { transform: translate(0, 0); } 30% { transform: translate(-1.5px, .5px); } 70% { transform: translate(1.5px, -.5px); } }
+.boss[data-state="defeated"] *, .boss[data-state="opened"] * { animation-play-state: paused; }
+.boss[data-state="defeated"] .stars, .boss[data-state="opened"] .stars { animation-play-state: running; }
+
+/* купец */
+.boss-kupets .scales { animation: scalesTilt 2.6s ease-in-out infinite; }
+.boss-kupets .pan { animation: panCounter 2.6s ease-in-out infinite; }
+.boss-kupets .belly { animation: bellyBounce 1.3s ease-in-out infinite; }
+.boss-kupets .arm-rub { animation: rubOne .32s ease-in-out infinite alternate; }
+@keyframes scalesTilt { 0%, 100% { transform: rotate(-9deg); } 50% { transform: rotate(9deg); } }
+@keyframes panCounter { 0%, 100% { transform: rotate(9deg); } 50% { transform: rotate(-9deg); } }
+@keyframes bellyBounce { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.015, .985); } }
+@keyframes rubOne { from { transform: rotate(-4deg); } to { transform: rotate(6deg); } }
+.boss-kupets[data-state="defeated"] .fig, .boss-kupets[data-state="opened"] .fig { transform: rotate(-74deg) translate(-30px, 34px); }
+/* змей */
+.boss-zmey .n1 { animation: neckSway 2.8s ease-in-out infinite; }
+.boss-zmey .n2 { animation: neckSway 2.8s ease-in-out -.9s infinite; }
+.boss-zmey .n3 { animation: neckSway 2.8s ease-in-out -1.8s infinite; }
+.boss-zmey .tail { animation: tailSwish 2.2s ease-in-out infinite; }
+.boss-zmey .wings { animation: wingFlap 1.9s ease-in-out infinite; }
+.boss-zmey .smoke { animation: smokeUp 2.4s ease-out infinite; }
+.boss .zzz { animation: zzz 3s ease-in-out infinite; }
+@keyframes neckSway { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+@keyframes tailSwish { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(7deg); } }
+@keyframes wingFlap { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.04, .88); } }
+@keyframes smokeUp { 0% { opacity: 0; transform: translate(0, 4px) scale(.6); } 30% { opacity: 1; } 100% { opacity: 0; transform: translate(-6px, -16px) scale(1.2); } }
+@keyframes zzz { 0%, 100% { transform: translate(0, 0); opacity: .4; } 50% { transform: translate(4px, -6px); opacity: 1; } }
+.boss-zmey[data-state="defeated"] .n1, .boss-zmey[data-state="opened"] .n1 { animation: none; transform: rotate(40deg); }
+.boss-zmey[data-state="defeated"] .n3, .boss-zmey[data-state="opened"] .n3 { animation: none; transform: rotate(-40deg); }
+.boss-zmey[data-state="defeated"] .n2, .boss-zmey[data-state="opened"] .n2 { animation: none; transform: rotate(10deg) scale(1, .82); }
+/* мытарь */
+.boss-mytar .stamp-arm { animation: stampArm 2.4s ease-in-out infinite; }
+.boss-mytar .stampmark { display: inline; stroke: #a63a2e; stroke-width: 2; animation: stampMark 2.4s ease-in-out infinite; }
+@keyframes stampArm { 0%, 100% { transform: rotate(0); } 40% { transform: rotate(-26deg); } 52% { transform: rotate(14deg); } 60% { transform: rotate(12deg); } }
+@keyframes stampMark { 0%, 50% { opacity: 0; } 54%, 90% { opacity: 1; } 100% { opacity: 0; } }
+.boss-mytar[data-state="defeated"] .barrier, .boss-mytar[data-state="opened"] .barrier { transform: rotate(16deg); }
+.boss-mytar[data-state="defeated"] .fig, .boss-mytar[data-state="opened"] .fig { transform: scale(1.08, .6); }
+/* кот */
+.boss-kot .tail { animation: tailSwish 2.4s ease-in-out infinite; }
+.boss-kot .paw { animation: pawBat 1.5s ease-in-out infinite; }
+.boss-kot .cateyes { animation: catBlink 4.5s ease-in-out infinite; }
+@keyframes pawBat { 0%, 60%, 100% { transform: rotate(0); } 70% { transform: rotate(-18deg); } 80% { transform: rotate(6deg); } }
+@keyframes catBlink { 0%, 90%, 100% { transform: scaleY(1); } 94% { transform: scaleY(.1); } }
+.boss-kot[data-state="defeated"] .fig, .boss-kot[data-state="opened"] .fig { transform: scale(1.06); }
+.boss-kot[data-state="defeated"] .cathat, .boss-kot[data-state="opened"] .cathat { transform: translate(-70px, 150px) rotate(-70deg); }
+.boss-kot[data-state="defeated"] .tail, .boss-kot[data-state="opened"] .tail { animation: none; transform: rotate(-50deg); }
+/* улита */
+.boss-ulita .s1 { animation: stalk 2.3s ease-in-out infinite; }
+.boss-ulita .s2 { animation: stalk 2.3s ease-in-out -1.1s infinite; }
+.boss-ulita .neck { animation: stretch 5s ease-in-out infinite; }
+.boss-ulita .flag { animation: tailSwish 3s ease-in-out infinite; }
+@keyframes stalk { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(9deg); } }
+@keyframes stretch { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.04, .97); } }
+.boss-ulita[data-state="defeated"] .neck, .boss-ulita[data-state="opened"] .neck { animation: none; transform: translateX(80px) scale(.1); opacity: 0; }
+.boss-ulita[data-state="defeated"] .foot, .boss-ulita[data-state="opened"] .foot { transform: scale(.45, 1); }
+/* кощей */
+.boss-koschey .head, .boss-koschey .cloak { animation: rock 3.2s ease-in-out infinite; }
+.boss-koschey .glow { animation: glowEye 1.3s ease-in-out infinite; }
+.boss-koschey .hands { animation: clutch 1.1s ease-in-out infinite; }
+@keyframes rock { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+@keyframes glowEye { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+@keyframes clutch { 0%, 100% { transform: scale(1); } 50% { transform: scale(.97, 1.02); } }
+.boss-koschey[data-state="defeated"] .fig, .boss-koschey[data-state="opened"] .fig { transform: scale(1.1, .5); }
+.boss-koschey[data-state="defeated"] .crown, .boss-koschey[data-state="opened"] .crown { transform: translate(-46px, 110px) rotate(-50deg); }
+/* яга */
+.boss-yaga .fly { animation: floaty 2.6s ease-in-out infinite; }
+.boss-yaga .shadowfly { animation: shadowFly 2.6s ease-in-out infinite; }
+.boss-yaga .broom { animation: sweep 1.3s ease-in-out infinite; }
+.boss-yaga .pestle-arm { animation: pestle 1.6s ease-in-out infinite; }
+@keyframes floaty { 0%, 100% { transform: translateY(-4px); } 50% { transform: translateY(-16px); } }
+@keyframes shadowFly { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.8); opacity: .6; } }
+@keyframes sweep { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(10deg); } }
+@keyframes pestle { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-16deg); } }
+.boss-yaga[data-state="defeated"] .fly, .boss-yaga[data-state="opened"] .fly { animation: none; transform: rotate(-96deg) translate(-38px, 30px); }
+/* чудо-юдо */
+.boss-chudo .waves-back { animation: waveX 4.5s linear infinite; }
+.boss-chudo .waves-front { animation: waveX 3.2s linear infinite reverse; }
+.boss-chudo .beast { animation: bobBig 4s ease-in-out infinite; }
+.boss-chudo .jaw { animation: chomp 2.6s ease-in-out infinite; }
+.boss-chudo .suck { animation: suckIn 2.6s ease-in infinite; }
+.boss-chudo .spout { animation: spoutPulse 2s ease-in-out infinite; }
+@keyframes waveX { from { transform: translateX(0); } to { transform: translateX(-60px); } }
+@keyframes bobBig { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(5px) rotate(-1deg); } }
+@keyframes chomp { 0%, 100% { transform: rotate(0); } 40% { transform: rotate(14deg); } 60% { transform: rotate(-2deg); } }
+@keyframes suckIn { 0% { transform: translate(0, 0); opacity: 0; } 20% { opacity: 1; } 100% { transform: translate(50px, 14px) scale(.4); opacity: 0; } }
+@keyframes spoutPulse { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.1, 1.25); } }
+.boss-chudo[data-state="defeated"] .beast, .boss-chudo[data-state="opened"] .beast { animation: none; transform: translateY(46px) rotate(-5deg); }
+.boss-chudo[data-state="defeated"] .suck, .boss-chudo[data-state="opened"] .suck { animation: coinFountain 1.6s ease-out infinite; }
+@keyframes coinFountain { 0% { transform: translate(200px, 40px) scale(.5); opacity: 0; } 30% { opacity: 1; } 100% { transform: translate(220px, -60px) scale(1); opacity: 0; } }
+
+/* ---------- сундуки ---------- */
+.chest-art .lid { transition: transform .8s cubic-bezier(.3, 1.6, .5, 1); transform-origin: 44px 114px; }
+.chest-art[data-open="1"] .lid { transform: rotate(-38deg) translate(-4px, -6px); }
+.chest-art .inside, .chest-art .chest-glow { opacity: 0; transition: opacity .6s .2s; }
+.chest-art[data-open="1"] .inside { opacity: 1; }
+.chest-art[data-open="1"] .chest-glow { opacity: 1; animation: glowPulse 2.2s ease-in-out infinite; }
+@keyframes glowPulse { 0%, 100% { transform: scale(1); opacity: .85; } 50% { transform: scale(1.08); opacity: 1; } }
+.chest-art .chest-glow { transform-origin: 100px 118px; }
+
+/* ---------- окружение сцен ---------- */
+.art .goldline { stroke: #e8c86e; }
+.art .goldstroke { stroke: #e8c86e; stroke-width: 3; }
+.art .faint { opacity: .12; }
+.art .web { stroke: #cfc6b4; opacity: .7; }
+.art .pearls { stroke: #f4efe6; stroke-width: 4; stroke-dasharray: .1 7; stroke-linecap: round; }
+.banner { animation: bannerWave 5.5s ease-in-out infinite; }
+.banner:nth-of-type(2n) { animation-delay: -2.2s; }
+@keyframes bannerWave { 0%, 100% { transform: skewX(0) scaleY(1); } 30% { transform: skewX(2.2deg) scaleY(1.01); } 70% { transform: skewX(-1.8deg) scaleY(.995); } }
+.glowlight { animation: glowFlick 2.6s ease-in-out infinite; }
+@keyframes glowFlick { 0%, 100% { opacity: .9; } 30% { opacity: .65; } 55% { opacity: 1; } 80% { opacity: .75; } }
+.mote { animation: mote 9s ease-in-out infinite; }
+@keyframes mote { 0%, 100% { transform: translate(0, 0); opacity: .2; } 50% { transform: translate(14px, -22px); opacity: .9; } }
+.ray { animation: rayShimmer 7s ease-in-out infinite; }
+@keyframes rayShimmer { 0%, 100% { opacity: .75; } 50% { opacity: 1; } }
+.lantern { animation: lanternSwing 4.5s ease-in-out infinite; }
+@keyframes lanternSwing { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+.hang { animation: lanternSwing 5s ease-in-out infinite; }
+.fire { animation: fireDance .5s ease-in-out infinite alternate; transform-origin: 1000px 400px; }
+@keyframes fireDance { from { transform: scale(1, .92); } to { transform: scale(.94, 1.08); } }
+.fireglow { animation: glowFlick 1.2s ease-in-out infinite; }
+.bunting { animation: buntSway 4s ease-in-out infinite; transform-origin: 500px 20px; }
+@keyframes buntSway { 0%, 100% { transform: rotate(-.6deg); } 50% { transform: rotate(.6deg); } }
+.mill-blades { animation: spinMill 6s linear infinite; }
+@keyframes spinMill { to { transform: rotate(360deg); } }
+.chestglow { animation: glowFlick 3.6s ease-in-out infinite; }
+.main-chest .pile { display: none; }
+.scene[data-fill="0"] .pile0, .scene[data-fill="1"] .pile1, .scene[data-fill="2"] .pile2, .scene[data-fill="3"] .pile3, .scene[data-fill="4"] .pile4 { display: inline; }
+.scene[data-fill="0"] .chestglow { opacity: .15; animation: none; }
+.moth { animation: moth 3s ease-in-out infinite; transform-origin: 150px 70px; }
+@keyframes moth { 0%, 100% { transform: translate(0, 0) scaleX(1); } 50% { transform: translate(20px, -18px) scaleX(.6); } }
+.mlid.bounce { animation: lidBounce .6s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes lidBounce { 0% { transform: scaleY(1); } 30% { transform: scaleY(1.12) translateY(-6px); } 60% { transform: scaleY(.96); } 100% { transform: scaleY(1); } }
+.main-chest.jolt { animation: jolt .45s ease-out; transform-origin: 150px 234px; }
+@keyframes jolt { 0%, 100% { transform: scale(1, 1); } 30% { transform: scale(1.03, .96); } 60% { transform: scale(.99, 1.02); } }
+.crow { animation: crowFly 7s ease-in-out infinite; }
+@keyframes crowFly { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, -12px); } }
+.anim-off .banner, .anim-off .mote, .anim-off .glowlight, .anim-off .hang, .anim-off .fire, .anim-off .lantern, .anim-off .bunting { animation: none !important; }
+.anim-low .mote, .anim-low .banner, .anim-low .hang, .anim-low .bunting { animation: none !important; }

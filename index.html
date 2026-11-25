@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2a1d15">
+  <meta name="color-scheme" content="light">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Казна">
+  <meta name="application-name" content="Царская казна">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="description" content="Царская казна — средневековое приложение для учёта денег и домашних запасов.">
+  <title>Царская казна</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="lora.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="art.css">
+</head>
+<body class="motion-auto">
+  <div id="app">
+    <nav id="rail" aria-label="Разделы"></nav>
+    <header id="topbar"></header>
+    <main id="stage">
+      <section class="screen" id="scr-home" data-screen="home" aria-label="Главная"></section>
+      <section class="screen" id="scr-treasurer" data-screen="treasurer" aria-label="Казначей"></section>
+      <section class="screen" id="scr-wheel" data-screen="wheel" aria-label="Колесо заданий"></section>
+      <section class="screen" id="scr-boyars" data-screen="boyars" aria-label="Бояре"></section>
+      <section class="screen" id="scr-pantry" data-screen="pantry" aria-label="Запасы"></section>
+      <section class="screen" id="scr-cart" data-screen="cart" aria-label="Корзина"></section>
+      <section class="screen" id="scr-manage" data-screen="manage" aria-label="Управление кладовой"></section>
+      <section class="screen" id="scr-settings" data-screen="settings" aria-label="Настройки и данные"></section>
+    </main>
+    <nav id="tabbar" aria-label="Экраны раздела"></nav>
+  </div>
+  <div id="fx" aria-hidden="true"></div>
+  <div id="modals"></div>
+  <div id="toasts" aria-live="polite"></div>
+  <div id="splash">
+    <div>
+      <svg class="crown" viewBox="0 0 24 24"><path d="M3.5 18.5L2.5 7.5l5 4l4.5-6.5l4.5 6.5l5-4l-1 11ZM4 18.5h16" fill="#c9a043" stroke="#e8c86e" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      <h1>ЦАРСКАЯ КАЗНА</h1>
+      <p id="splash-msg">Отпираем сундуки…</p>
+    </div>
+  </div>
+  <noscript><p style="color:#f1dfb4;text-align:center;padding:40px">Для работы «Царской казны» нужен включённый JavaScript.</p></noscript>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
